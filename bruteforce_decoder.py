@@ -4,6 +4,8 @@ dictionary = enchant.Dict("en_GB")
 from win10toast import ToastNotifier
 toast = ToastNotifier()
 
+from datetime import datetime, UTC
+
 alphabet_by_frequency = ['e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd', 'l', 'c', 'u', 'm', 'w', 'f', 'g', 'y', 'p', 'b', 'v', 'k', 'j', 'x', 'q', 'z']
 
 # -------------------------------------- #
@@ -22,19 +24,36 @@ def check_letter_sub(code_word, letter_sub):
     print(f"decoded word: {decoded_word}")
     print("----------------------------------------")
     if dictionary.check(decoded_word):
+        decoded_code = []
+        # That word was decoded successfully, so check the rest of the code
+        num_not_correct = 0
+        for word in words_in_code:
+            decoded_word = decode_code_word_with_sub(word, letter_sub)
+            decoded_code.append(decoded_word)
+            if not dictionary.check(decoded_word):
+                num_not_correct += 1
+
         with open("./decode_output.txt", "a") as file:
             file.write("\n# --------------- WORD FOUND --------------- #")
-            file.write(f"\nEncrypted Word: {word_being_decrypted}")
             file.write(f"\nLetter Substitution: {letter_sub}")
             file.write(f"\nDecrypted Word: {decoded_word}")
+            file.write(f"\nWords In Code Successfully Decrypted: {len(words_in_code) - num_not_correct}")
+            file.write(f"\nWords In Code Decryption Fails: {num_not_correct}")
+            file.write(f"\nCode Decryption Percentage: {((len(words_in_code) - num_not_correct) / len(words_in_code)) * 100}")
+            file.write(f"\nDecrypted Code: {str([(word+' ') for word in decoded_code])}")
 
 # -------------------------------------- #
 
-code = input("Enter the encryted message: ")
+code = input("Enter the encrypted message: ")
 words_in_code = code.split(" ")
 
+# Add a new section to the output file
+with open("./decode_output.txt", "a") as file:
+    file.write(f"\n\n---------- DECODER STARTED AT {str(datetime.now(UTC)).split('.')[0]} ----------")
+    file.write(f"\nCode being decoded: {code}\n")
+
 # Sort the letters in the code by occurrence
-letters_in_code = [letter for letter in code]
+letters_in_code = [letter for letter in code if letter in alphabet_by_frequency]
 letters_in_code = sorted(letters_in_code, key=letters_in_code.count, reverse=True)
 sorted_letters_in_code = []
 sorted_letters_in_code = [letter for letter in letters_in_code if letter not in sorted_letters_in_code]
@@ -64,13 +83,16 @@ for letter in letters_in_word:
 def for_loop_block(letters_index, letter, index, prev_letter, prev_index):
     global unused_letters, letter_sub
 
+    if len(sorted_letters_in_code) < letters_index + 1:
+        return prev_letter, prev_index
+
     if prev_letter:
         unused_letters.insert(prev_index, prev_letter)
     prev_letter = letter
     prev_index = index
 
     unused_letters.remove(letter)
-    letter_sub[sorted_letters[letters_index]] = letter
+    letter_sub[sorted_letters_in_code[letters_index]] = letter
 
     return prev_letter, prev_index
 
@@ -90,7 +112,7 @@ for letter in alphabet_by_frequency:
 for a in alphabet_by_frequency:
     unused_letters = alphabet_by_frequency.copy()
     unused_letters.remove(a)
-    letter_sub[sorted_letters[0]] = a
+    letter_sub[sorted_letters_in_code[0]] = a
 
     # Second letter
     for index_b, b in enumerate(unused_letters):

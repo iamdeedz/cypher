@@ -8,7 +8,7 @@ for letter in alphabet:
     letter_sub[letter] = random_letter
     unused_letters.remove(random_letter)
 
-message_to_encode = "hello"
+message_to_encode = "this is encrypted text"
 encoded_message = ""
 for letter in message_to_encode:
     encoded_message += letter_sub[letter]
