@@ -33,10 +33,15 @@ def check_letter_sub(code_word, letter_sub):
 code = input("Enter the encryted message: ")
 words_in_code = code.split(" ")
 
-# Number of unique letters in the code
-letters_in_code = []
-letters_in_code = [letter for letter in [word for word in words_in_code] if letter not in letters_in_code]
-print(letters_in_code)
+# Sort the letters in the code by occurrence
+letters_in_code = [letter for letter in code]
+letters_in_code = sorted(letters_in_code, key=letters_in_code.count, reverse=True)
+sorted_letters_in_code = []
+sorted_letters_in_code = [letter for letter in letters_in_code if letter not in sorted_letters_in_code]
+if len(sorted_letters_in_code) > 20:
+    num_over_limit = len(sorted_letters_in_code) - 20
+    for letter in sorted_letters_in_code.copy()[-num_over_limit:-1]:
+        sorted_letters_in_code.remove(letter)
 
 # Find the longest word in the code
 longest_word_index = None
@@ -147,31 +152,6 @@ for a in alphabet_by_frequency:
                                                                             for index_t, t in enumerate(unused_letters):
                                                                                 prev_t, prev_index_t = for_loop_block(19, t, index_t, prev_t, prev_index_t)
 
-                                                                                for index_u, u in enumerate(unused_letters):
-                                                                                    prev_u, prev_index_u = for_loop_block(20, u, index_u, prev_u, prev_index_u)
-
-                                                                                    for index_v, v in enumerate(unused_letters):
-                                                                                        prev_v, prev_index_v = for_loop_block(21, v, index_v, prev_v, prev_index_v)
-
-                                                                                        for index_w, w in enumerate(unused_letters):
-                                                                                            prev_w, prev_index_w = for_loop_block(22, w, index_w, prev_w, prev_index_w)
-
-                                                                                            for index_x, x in enumerate(unused_letters):
-                                                                                                prev_x, prev_index_x = for_loop_block(23, x, index_x, prev_x, prev_index_x)
-
-                                                                                                for index_y, y in enumerate(unused_letters):
-                                                                                                    prev_y, prev_index_y = for_loop_block(24, y, index_y, prev_y, prev_index_y)
-
-                                                                                                    for index_z, z in enumerate(unused_letters):
-                                                                                                        prev_z, prev_index_z = for_loop_block(25, z, index_z, prev_z, prev_index_z)
-
-                                                                                                        check_letter_sub(word_being_decrypted, letter_sub)
-                                                                                                    check_letter_sub(word_being_decrypted, letter_sub)
-                                                                                                check_letter_sub(word_being_decrypted, letter_sub)
-                                                                                            check_letter_sub(word_being_decrypted, letter_sub)
-                                                                                        check_letter_sub(word_being_decrypted, letter_sub)
-                                                                                    check_letter_sub( word_being_decrypted, letter_sub)
-                                                                                check_letter_sub(word_being_decrypted, letter_sub)
                                                                             check_letter_sub(word_being_decrypted, letter_sub)
                                                                         check_letter_sub(word_being_decrypted, letter_sub)
                                                                     check_letter_sub(word_being_decrypted, letter_sub)
