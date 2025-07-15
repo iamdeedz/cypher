@@ -25,11 +25,11 @@ def decode_code_word_with_sub(code_word, letter_sub):
 
 
 def check_letter_sub(code_word, letter_sub):
-    print("Checking Sub")
-    print(f"letter sub: {letter_sub}")
+    #print("Checking Sub")
+    #print(f"letter sub: {letter_sub}")
     decoded_word = decode_code_word_with_sub(code_word, letter_sub)
-    print(f"decoded word: {decoded_word}")
-    print("----------------------------------------")
+    #print(f"decoded word: {decoded_word}")
+    #print("----------------------------------------")
     if dictionary.check(decoded_word):
         decoded_code = []
         # That word was decoded successfully, so check the rest of the code
@@ -261,6 +261,8 @@ if __name__ == "__main__":
         process = Process(target=worker, args=(code,))
         processes.append(process)
         process.start()
+
+    print(f"The decoding process has begun. {process_count} processes are currently working. For optimisation purposes, nothing will be printed to this console during the process. If a word is successfully decrypted, or if the process finishes, you will receive a notification.")
 
     for process in processes:
         process.join()
