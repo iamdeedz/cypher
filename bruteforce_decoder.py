@@ -1,3 +1,8 @@
+
+# ------------------------------------------ #
+# ----- WARNING: DISGUSTING CODE AHEAD ----- #
+# ------------------------------------------ #
+
 import enchant
 dictionary = enchant.Dict("en_GB")
 
