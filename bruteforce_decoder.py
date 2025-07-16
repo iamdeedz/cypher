@@ -25,11 +25,8 @@ def decode_code_word_with_sub(code_word, letter_sub):
 
 
 def check_letter_sub(code_word, letter_sub):
-    #print("Checking Sub")
-    #print(f"letter sub: {letter_sub}")
     decoded_word = decode_code_word_with_sub(code_word, letter_sub)
-    #print(f"decoded word: {decoded_word}")
-    #print("----------------------------------------")
+
     if dictionary.check(decoded_word):
         decoded_code = []
         # That word was decoded successfully, so check the rest of the code
@@ -41,11 +38,6 @@ def check_letter_sub(code_word, letter_sub):
                 num_not_correct += 1
 
         with open("./decode_output.txt", "a") as file:
-            toast.show_toast(
-                "Bruteforce Decoder",
-                f"A word has been decrypted successfully. Code Decryption Percentage: {((len(words_in_code) - num_not_correct) / len(words_in_code)) * 100}",
-                duration=5
-            )
             file.write("\n# --------------- WORD FOUND --------------- #")
             file.write(f"\nLetter Substitution: {letter_sub}")
             file.write(f"\nDecrypted Word: {decoded_word}")
@@ -53,11 +45,20 @@ def check_letter_sub(code_word, letter_sub):
             file.write(f"\nWords In Code Decryption Fails: {num_not_correct}")
             file.write(f"\nCode Decryption Percentage: {((len(words_in_code) - num_not_correct) / len(words_in_code)) * 100}")
             file.write(f"\nDecrypted Code: {str([(word+' ') for word in decoded_code])}")
+            toast.show_toast(
+                "Bruteforce Decoder",
+                f"A word has been decrypted successfully. Code Decryption Percentage: {((len(words_in_code) - num_not_correct) / len(words_in_code)) * 100}",
+                duration=5,
+                threaded=True
+            )
 
 # -------------------------------------- #
 
+words_in_code = []
+
 
 def prepare_for_decode(code):
+    global words_in_code
     words_in_code = code.split(" ")
 
     # Sort the letters in the code by occurrence
@@ -167,77 +168,77 @@ def worker(code):
 
         # Second letter
         for index_b, b in enumerate(unused_letters):
-            if b != "_":
+            if sorted_letters_in_code[1] != "_":
                 prev_b, prev_index_b, letter_sub = for_loop_block(1, b, index_b, prev_b, prev_index_b, letter_sub, sorted_letters_in_code, unused_letters)
 
             # Third
             for index_c, c in enumerate(unused_letters):
-                if c != "_":
+                if sorted_letters_in_code[2] != "_":
                     prev_c, prev_index_c, letter_sub = for_loop_block(2, c, index_c, prev_c, prev_index_c, letter_sub, sorted_letters_in_code, unused_letters)
 
                 # Et cetera
                 for index_d, d in enumerate(unused_letters):
-                    if d != "_":
+                    if sorted_letters_in_code[3] != "_":
                         prev_d, prev_index_d, letter_sub = for_loop_block(3, d, index_d, prev_d, prev_index_d, letter_sub, sorted_letters_in_code, unused_letters)
 
                     for index_e, e in enumerate(unused_letters):
-                        if e != "_":
+                        if sorted_letters_in_code[4] != "_":
                             prev_e, prev_index_e, letter_sub = for_loop_block(4, e, index_e, prev_e, prev_index_e, letter_sub, sorted_letters_in_code, unused_letters)
 
                         for index_f, f in enumerate(unused_letters):
-                            if f != "_":
+                            if sorted_letters_in_code[5] != "_":
                                 prev_f, prev_index_f, letter_sub = for_loop_block(5, f, index_f, prev_f, prev_index_f, letter_sub, sorted_letters_in_code, unused_letters)
 
                             for index_g, g in enumerate(unused_letters):
-                                if g != "_":
+                                if sorted_letters_in_code[6] != "_":
                                     prev_g, prev_index_g, letter_sub = for_loop_block(6, g, index_g, prev_g, prev_index_g, letter_sub, sorted_letters_in_code, unused_letters)
 
                                 for index_h, h in enumerate(unused_letters):
-                                    if h != "_":
+                                    if sorted_letters_in_code[7] != "_":
                                         prev_h, prev_index_h, letter_sub = for_loop_block(7, h, index_h, prev_h, prev_index_h, letter_sub, sorted_letters_in_code, unused_letters)
 
                                     for index_i, i in enumerate(unused_letters):
-                                        if i != "_":
+                                        if sorted_letters_in_code[8] != "_":
                                             prev_i, prev_index_i, letter_sub = for_loop_block(8, i, index_i, prev_i, prev_index_i, letter_sub, sorted_letters_in_code, unused_letters)
 
                                         for index_j, j in enumerate(unused_letters):
-                                            if j != "_":
+                                            if sorted_letters_in_code[9] != "_":
                                                 prev_j, prev_index_j, letter_sub = for_loop_block(9, j, index_j, prev_j, prev_index_j, letter_sub, sorted_letters_in_code, unused_letters)
 
                                             for index_k, k in enumerate(unused_letters):
-                                                if k != "_":
+                                                if sorted_letters_in_code[10] != "_":
                                                     prev_k, prev_index_k, letter_sub = for_loop_block(10, k, index_k, prev_k, prev_index_k, letter_sub, sorted_letters_in_code, unused_letters)
 
                                                 for index_l, l in enumerate(unused_letters):
-                                                    if l != "_":
+                                                    if sorted_letters_in_code[11] != "_":
                                                         prev_l, prev_index_l, letter_sub = for_loop_block(11, l, index_l, prev_l, prev_index_l, letter_sub, sorted_letters_in_code, unused_letters)
 
                                                     for index_m, m in enumerate(unused_letters):
-                                                        if m != "_":
+                                                        if sorted_letters_in_code[12] != "_":
                                                             prev_m, prev_index_m, letter_sub = for_loop_block(12, m, index_m, prev_m, prev_index_m, letter_sub, sorted_letters_in_code, unused_letters)
 
                                                         for index_n, n in enumerate(unused_letters):
-                                                            if n != "_":
+                                                            if sorted_letters_in_code[13] != "_":
                                                                 prev_n, prev_index_n, letter_sub = for_loop_block(13, n, index_n, prev_n, prev_index_n, letter_sub, sorted_letters_in_code, unused_letters)
 
                                                             for index_o, o in enumerate(unused_letters):
-                                                                if o != "_":
+                                                                if sorted_letters_in_code[14] != "_":
                                                                     prev_o, prev_index_o, letter_sub = for_loop_block(14, o, index_o, prev_o, prev_index_o, letter_sub, sorted_letters_in_code, unused_letters)
 
                                                                 for index_p, p in enumerate(unused_letters):
-                                                                    if p != "_":
+                                                                    if sorted_letters_in_code[15] != "_":
                                                                         prev_p, prev_index_p, letter_sub = for_loop_block(15, p, index_p, prev_p, prev_index_p, letter_sub, sorted_letters_in_code, unused_letters)
 
                                                                     for index_q, q in enumerate(unused_letters):
-                                                                        if q != "_":
+                                                                        if sorted_letters_in_code[16] != "_":
                                                                             prev_q, prev_index_q, letter_sub = for_loop_block(16, q, index_q, prev_q, prev_index_q, letter_sub, sorted_letters_in_code, unused_letters)
 
                                                                         for index_r, r in enumerate(unused_letters):
-                                                                            if r != "_":
+                                                                            if sorted_letters_in_code[17] != "_":
                                                                                 prev_r, prev_index_r, letter_sub = for_loop_block(17, r, index_r, prev_r, prev_index_r, letter_sub, sorted_letters_in_code, unused_letters)
 
                                                                             for index_s, s in enumerate(unused_letters):
-                                                                                if s != "_":
+                                                                                if sorted_letters_in_code[18] != "_":
                                                                                     prev_s, prev_index_s, letter_sub = for_loop_block(18, s, index_s, prev_s, prev_index_s, letter_sub, sorted_letters_in_code, unused_letters)
 
                                                                                 for index_t, t in enumerate(unused_letters):
