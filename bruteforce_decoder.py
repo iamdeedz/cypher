@@ -24,7 +24,7 @@ def decode_code_word_with_sub(code_word, letter_sub):
     return decoded_word
 
 
-def check_letter_sub(code_word, letter_sub):
+def check_letter_sub(code_word, letter_sub, file_number):
     decoded_word = decode_code_word_with_sub(code_word, letter_sub)
 
     if dictionary.check(decoded_word):
@@ -37,9 +37,7 @@ def check_letter_sub(code_word, letter_sub):
             if not dictionary.check(decoded_word):
                 num_not_correct += 1
 
-        random_num = randint(1, 999)
-        file_name = f"./decode_output_{random_num}.txt"
-        with open(file_name, "a") as file:
+        with open(f"./decode_output_{file_number}.txt", "a") as file:
             file.write("\n# --------------- WORD FOUND --------------- #")
             file.write(f"\nLetter Substitution: {letter_sub}")
             file.write(f"\nDecrypted Word: {decoded_word}")
@@ -117,7 +115,7 @@ def for_loop_block(letters_index, letter, index, prev_letter, prev_index, letter
     return prev_letter, prev_index, letter_sub
 
 
-def worker(code):
+def worker(code, file_number):
     # exec() doesn't work with the multiprocessing and I can't be bothered figuring out an elegant solution so fuck it.
     # The above line pretty much describes the creation process of this goofy program.
     prev_b = None
@@ -249,25 +247,25 @@ def worker(code):
                                                                                 for index_t, t in enumerate(unused_letters):
                                                                                     prev_t, prev_index_t, letter_sub = for_loop_block(19, t, index_t, prev_t, prev_index_t, letter_sub, sorted_letters_in_code, unused_letters)
 
-                                                                                check_letter_sub(word_being_decrypted, letter_sub)
-                                                                            check_letter_sub(word_being_decrypted, letter_sub)
-                                                                        check_letter_sub(word_being_decrypted, letter_sub)
-                                                                    check_letter_sub(word_being_decrypted, letter_sub)
-                                                                check_letter_sub(word_being_decrypted, letter_sub)
-                                                            check_letter_sub(word_being_decrypted, letter_sub)
-                                                        check_letter_sub(word_being_decrypted, letter_sub)
-                                                    check_letter_sub(word_being_decrypted, letter_sub)
-                                                check_letter_sub(word_being_decrypted, letter_sub)
-                                            check_letter_sub(word_being_decrypted, letter_sub)
-                                        check_letter_sub(word_being_decrypted, letter_sub)
-                                    check_letter_sub(word_being_decrypted, letter_sub)
-                                check_letter_sub(word_being_decrypted, letter_sub)
-                            check_letter_sub(word_being_decrypted, letter_sub)
-                        check_letter_sub(word_being_decrypted, letter_sub)
-                    check_letter_sub(word_being_decrypted, letter_sub)
-                check_letter_sub(word_being_decrypted, letter_sub)
-            check_letter_sub(word_being_decrypted, letter_sub)
-        check_letter_sub(word_being_decrypted, letter_sub)
+                                                                                check_letter_sub(word_being_decrypted, letter_sub, file_number)
+                                                                            check_letter_sub(word_being_decrypted, letter_sub, file_number)
+                                                                        check_letter_sub(word_being_decrypted, letter_sub, file_number)
+                                                                    check_letter_sub(word_being_decrypted, letter_sub, file_number)
+                                                                check_letter_sub(word_being_decrypted, letter_sub, file_number)
+                                                            check_letter_sub(word_being_decrypted, letter_sub, file_number)
+                                                        check_letter_sub(word_being_decrypted, letter_sub, file_number)
+                                                    check_letter_sub(word_being_decrypted, letter_sub, file_number)
+                                                check_letter_sub(word_being_decrypted, letter_sub, file_number)
+                                            check_letter_sub(word_being_decrypted, letter_sub, file_number)
+                                        check_letter_sub(word_being_decrypted, letter_sub, file_number)
+                                    check_letter_sub(word_being_decrypted, letter_sub, file_number)
+                                check_letter_sub(word_being_decrypted, letter_sub, file_number)
+                            check_letter_sub(word_being_decrypted, letter_sub, file_number)
+                        check_letter_sub(word_being_decrypted, letter_sub, file_number)
+                    check_letter_sub(word_being_decrypted, letter_sub, file_number)
+                check_letter_sub(word_being_decrypted, letter_sub, file_number)
+            check_letter_sub(word_being_decrypted, letter_sub, file_number)
+        check_letter_sub(word_being_decrypted, letter_sub, file_number)
 
 
 if __name__ == "__main__":
@@ -280,14 +278,15 @@ if __name__ == "__main__":
     except ValueError:
         exit("\nProcess count must be a number.")
 
-    # Add a new section to the output file
-    with open("./decode_output.txt", "a") as file:
+    # Add a new section to a random output file
+    file_number = randint(1, 999)
+    with open(f"./decode_output_{file_number}.txt", "a") as file:
         file.write(f"\n\n---------- DECODER STARTED AT {str(datetime.now(UTC)).split('.')[0]} UTC ----------")
         file.write(f"\nCode being decrypted: {code}\n")
 
     processes = []
     for _ in range(process_count):
-        process = Process(target=worker, args=(code,))
+        process = Process(target=worker, args=(code,file_number,))
         processes.append(process)
         process.start()
 
