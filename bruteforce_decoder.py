@@ -44,7 +44,10 @@ def check_letter_sub(code_word, letter_sub):
             file.write(f"\nWords In Code Successfully Decrypted: {len(words_in_code) - num_not_correct}")
             file.write(f"\nWords In Code Decryption Fails: {num_not_correct}")
             file.write(f"\nCode Decryption Percentage: {((len(words_in_code) - num_not_correct) / len(words_in_code)) * 100}")
-            file.write(f"\nDecrypted Code: {str([(word+' ') for word in decoded_code])}")
+            decoded_code_str = ""
+            for word in decoded_code:
+                decoded_code_str += word+" "
+            file.write(f"\nDecrypted Code: {decoded_code_str}")
             toast.show_toast(
                 "Bruteforce Decoder",
                 f"A word has been decrypted successfully. Code Decryption Percentage: {((len(words_in_code) - num_not_correct) / len(words_in_code)) * 100}",
