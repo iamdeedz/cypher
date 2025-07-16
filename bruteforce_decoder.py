@@ -10,7 +10,7 @@ from win10toast import ToastNotifier
 toast = ToastNotifier()
 
 from datetime import datetime, UTC
-from random import shuffle
+from random import shuffle, randint
 from multiprocessing import Process
 
 alphabet_by_frequency = ['e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd', 'l', 'c', 'u', 'm', 'w', 'f', 'g', 'y', 'p', 'b', 'v', 'k', 'j', 'x', 'q', 'z']
@@ -37,7 +37,9 @@ def check_letter_sub(code_word, letter_sub):
             if not dictionary.check(decoded_word):
                 num_not_correct += 1
 
-        with open("./decode_output.txt", "a") as file:
+        random_num = randint(1, 999)
+        file_name = f"./decode_output_{random_num}.txt"
+        with open(file_name, "a") as file:
             file.write("\n# --------------- WORD FOUND --------------- #")
             file.write(f"\nLetter Substitution: {letter_sub}")
             file.write(f"\nDecrypted Word: {decoded_word}")
