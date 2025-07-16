@@ -166,8 +166,10 @@ def worker(code, file_number):
     # First letter in code
     for a in local_alphabet:
         unused_letters = local_alphabet.copy()
-        unused_letters.remove(a)
-        letter_sub[sorted_letters_in_code[0]] = a
+
+        if sorted_letters_in_code[0] != "_":
+            unused_letters.remove(a)
+            letter_sub[sorted_letters_in_code[0]] = a
 
         # Second letter
         for index_b, b in enumerate(unused_letters):
