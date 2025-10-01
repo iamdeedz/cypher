@@ -116,7 +116,7 @@ def for_loop_block(letters_index, letter, index, prev_letter, prev_index, letter
 
 
 def worker(code, file_number):
-    # exec() doesn't work with the multiprocessing and I can't be bothered figuring out an elegant solution so fuck it.
+    # exec() doesn't work with the multiprocessing and I can't be bothered figuring out an elegant solution so f*** it.
     # The above line pretty much describes the creation process of this goofy program.
     prev_b = None
     prev_index_b = None
